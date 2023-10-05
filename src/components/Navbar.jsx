@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 
 import About from "./About.jsx";
 import Work from "./Work.jsx";
@@ -9,10 +9,10 @@ import Contact from "./Contact.jsx";
 import Resume from "./Resume.jsx";
 import Blog from "./Blog.jsx";
 
-const NavItems = ({ title, to, classProps }) => {
+const NavItems = ({ title, to, classProps, onClick }) => {
   return (
     <>
-      <Link to={to} className={`mx-4 cursor-pointer ${classProps}`}>
+      <Link to={to} className={`mx-4 cursor-pointer ${classProps}`} onClick={onClick}>
         {title}
       </Link>
     </>
@@ -20,7 +20,19 @@ const NavItems = ({ title, to, classProps }) => {
 };
 
 const Navbar = () => {
-  const [toggleMenu, setToggleMenu] = React.useState(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (initialLoad) {
+      // Redirect to the About page on initial load
+      setInitialLoad(false);
+    }
+  }, [initialLoad]);
+
+  const closeMenu = () => {
+    setToggleMenu(false);
+  };
 
   return (
     <div className="flex flex-row">
@@ -46,7 +58,7 @@ const Navbar = () => {
             flex flex-col justify-start items-end rounded-md blue-glassmorphism text-white animate-slide-in"
             >
               <li className="text-xl w-full my-2">
-                <AiOutlineClose onClick={() => setToggleMenu(false)} />
+                <AiOutlineClose onClick={closeMenu} />
               </li>
               {[
                 { title: "About", to: "/about" },
@@ -60,6 +72,7 @@ const Navbar = () => {
                   title={item.title}
                   to={item.to}
                   classProps="my-2 text-lg"
+                  onClick={closeMenu}
                 />
               ))}
             </ul>
@@ -81,7 +94,7 @@ const Navbar = () => {
                     title={item.title}
                     to={item.to}
                     classProps={"hover:bg-rose-600 rounded-lg p-6"}
-                    onClick={toggleMenu}
+                    onClick={closeMenu}
                   />
                 );
               })}
@@ -89,6 +102,7 @@ const Navbar = () => {
           </nav>
         </div>
         <Routes>
+          <Route path="/" element={<Navigate to="/about" />} />
           <Route path="/about" element={<About />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/work" element={<Work />} />
