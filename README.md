@@ -1,4 +1,4 @@
-```markdown
+
 # React Starter Template for Vite
 
 This template provides a minimal setup to get React working in Vite with Hot Module Replacement (HMR) and a set of ESLint rules. You can choose between two official plugins to enhance your development experience:
@@ -21,7 +21,10 @@ Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.co
 
 ### Installation
 
-1. Clone this repository or use it as a template for your project:
+1. Clone this repository or use it as a template for your project.
+   ```bash
+   git clone git@github.com:Muhammad-Tayyab-Bhutto/resume-web.git
+   ```
 
 2. Navigate to the project folder:
 
