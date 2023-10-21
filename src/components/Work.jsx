@@ -2,13 +2,15 @@ import React from "react";
 import data from "./projectData";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
-
+import aboutWork from "./aboutWork.jsx";
 const Projects = (props) => {
   const [heart, setHeart] = React.useState(false);
   const [count, setCount] = React.useState(props.likes);
   const toggle = () => {
     setHeart((prevState) => !prevState);
-    heart ? setCount(prevCount => prevCount - 1) : setCount(prevCount => prevCount + 1)
+    heart
+      ? setCount((prevCount) => prevCount - 1)
+      : setCount((prevCount) => prevCount + 1);
   };
   return (
     <div className="relative cursor-pointer flex w-72 flex-col rounded-xl bg-gray-950  bg-clip-border text-rose-600 shadow-md overflow-hidden">
@@ -24,7 +26,16 @@ const Projects = (props) => {
             onClick={toggle}
             className="block font-sans text-white text-base font-medium leading-relaxed text-blue-gray-900 antialiased"
           >
-            {heart ? <><AiFillHeart /> {count}</>: <><AiOutlineHeart  />{count}</>}
+            {heart ? (
+              <>
+                <AiFillHeart /> {count}
+              </>
+            ) : (
+              <>
+                <AiOutlineHeart />
+                {count}
+              </>
+            )}
           </button>
         </div>
         <p className="block font-sans text-sm font-normal leading-normal text-gray-600 antialiased opacity-75">
@@ -32,20 +43,34 @@ const Projects = (props) => {
           an available wireless charging case.
         </p>
       </div>
-      
     </div>
   );
 };
 
 const Work = () => {
+  const [clicked, setClicked] = React.useState(true);
   const projects = data.map((item) => {
     return <Projects key={item.id} {...item} />;
   });
+
+  const toggle = () => {
+    setClicked(prevState => !prevState)
+  }
   return (
-    <div className="gap-4 md:mx-6 flex flex-row flex-wrap justify-center rounded-lg bg-gray-900 text-white shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] p-10 ">
-      {projects}
+    <div onClick={toggle}>
+      {!clicked && (
+        <div className="gap-4 md:mx-6 flex flex-row flex-wrap justify-center rounded-lg bg-gray-900 text-white shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] p-10 ">
+          {projects}
+        </div>
+      )}
+      {clicked && 
+        <div className="gap-4 md:mx-6 flex flex-row flex-wrap justify-center rounded-lg bg-gray-900 text-white shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] p-10 ">
+          {aboutWork()} {/* Call the function and render its return value */}
+        </div>
+      }
     </div>
   );
 };
+
 
 export default Work;
