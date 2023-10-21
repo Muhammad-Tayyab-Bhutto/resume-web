@@ -65,7 +65,7 @@ const Work = () => {
       )}
       {clicked && 
         <div className="gap-4 md:mx-6 flex flex-row flex-wrap justify-center rounded-lg bg-gray-900 text-white shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] p-10 ">
-          {aboutWork()} {/* Call the function and render its return value */}
+          {aboutWork()}
         </div>
       }
     </div>
